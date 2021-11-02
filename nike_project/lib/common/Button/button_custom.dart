@@ -1,5 +1,6 @@
-import 'package:flutter/cupertino.dart';
+// import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nike_project/contants/contants.dart';
 
 class ElevatedButtonCustom extends StatelessWidget {
   final Widget child;
@@ -10,23 +11,24 @@ class ElevatedButtonCustom extends StatelessWidget {
   const ElevatedButtonCustom(
       {Key? key,
       required this.child,
-      required this.color,
+      this.color = kPrimaryColor,
       required this.onPressed,
-      required this.borderRadius,
-      required this.height})
+      this.borderRadius = 10,
+      this.height = 50.0})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: height,
-      child: ElevatedButton(
-        onPressed: onPressed,
-        child: child,
-        style: ElevatedButton.styleFrom(
-            primary: color,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(borderRadius)))),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(borderRadius),
+        child: ElevatedButton(
+          onPressed: onPressed,
+          child: child,
+          style: ElevatedButton.styleFrom(
+              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+              shadowColor: color),
+        ),
       ),
     );
   }
