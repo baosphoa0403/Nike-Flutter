@@ -7,9 +7,12 @@ class ElevatedButtonCustom extends StatelessWidget {
   final VoidCallback? onPressed;
   final double borderRadius;
   final double height;
+  final double width;
+
   const ElevatedButtonCustom(
       {Key? key,
       required this.child,
+      required this.width,
       required this.color,
       required this.onPressed,
       required this.borderRadius,
@@ -19,6 +22,7 @@ class ElevatedButtonCustom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
+      width: width,
       height: height,
       child: ElevatedButton(
         onPressed: onPressed,
