@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nike_project/page/sign_up_page/component/body.dart';
+import 'package:nike_project/page/sign_up_page/component/screen.dart';
 
 class SignUp extends StatelessWidget {
   const SignUp({ Key? key }) : super(key: key);
@@ -7,7 +7,7 @@ class SignUp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BodySignUp(),
+      body: ScreenSignUp(),
     );
   }
 }

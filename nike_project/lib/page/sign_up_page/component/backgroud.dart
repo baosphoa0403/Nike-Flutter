@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
+import 'package:nike_project/contants/contants.dart';
 
 class BackgroudSignUp extends StatelessWidget {
   final Widget child;
@@ -6,12 +8,17 @@ class BackgroudSignUp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Container(
+      width: double.infinity,
+      height: size.height,
       child: Stack(
         alignment: Alignment.center,
         children: <Widget>[
-         // Positioned(child: Image.asset("")),
-          child
+          Container(
+            child: child,
+            color: kBackgroundColor,
+          )                   
         ],
       ),
     );
