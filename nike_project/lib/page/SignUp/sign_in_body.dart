@@ -8,14 +8,14 @@ import 'package:nike_project/page/SignUp/validation_email_password.dart';
 
 enum ButtonState { init, loading, done }
 
-class BuildChildren extends StatefulWidget with EmailAndPasswordValidator {
-  BuildChildren({Key? key}) : super(key: key);
+class SignInBody extends StatefulWidget with EmailAndPasswordValidator {
+  SignInBody({Key? key}) : super(key: key);
 
   @override
-  State<BuildChildren> createState() => _BuildChildrenState();
+  State<SignInBody> createState() => _SignInBodyState();
 }
 
-class _BuildChildrenState extends State<BuildChildren> {
+class _SignInBodyState extends State<SignInBody> {
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:nike_project/page/SignUp/sign_up_page_body.dart';
+import 'package:nike_project/page/SignUp/sign_in_body.dart';
 
-class SignUpPage extends StatelessWidget {
-  const SignUpPage({Key? key}) : super(key: key);
+class SignInPage extends StatelessWidget {
+  const SignInPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +10,7 @@ class SignUpPage extends StatelessWidget {
       child: Container(
         height: MediaQuery.of(context).size.height,
         padding: const EdgeInsets.all(40),
-        child: BuildChildren(),
+        child: SignInBody(),
       ),
     );
   }
