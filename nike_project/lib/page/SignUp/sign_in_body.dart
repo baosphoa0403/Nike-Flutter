@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:nike_project/common/Button/elevated_button_custom.dart';
 import 'package:nike_project/common/ScocialButton/social_button.dart';
+import 'package:nike_project/contants/contants.dart';
+import 'package:nike_project/model/modelUserRequestLogin/user_request_login.dart';
 import 'package:nike_project/page/SignUp/button_back.dart';
 import 'package:nike_project/page/SignUp/validation_email_password.dart';
+import 'package:nike_project/view_models/auth_view_models.dart';
 
 enum ButtonState { init, loading, done }
 
@@ -36,7 +39,9 @@ class _SignInBodyState extends State<SignInBody> {
         state = ButtonState.loading;
       });
       await Future.delayed(const Duration(seconds: 3));
-      print("email: " + email + "-password: " + password);
+      // print("email: " + email + "-password: " + password);
+       var data = {'email': email, 'password' : password};
+      AuthViewModel().callApiLogin(URL_API, data);
       setState(() {
         state = ButtonState.done;
         _submitted = false;
