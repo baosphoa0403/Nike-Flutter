@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nike_project/page/main_page.dart';
+import 'package:nike_project/view_models/sign_up_validation.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,13 +13,16 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return ChangeNotifierProvider<SignUpValidationProvider>(
+      create: (context) => SignUpValidationProvider(),
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        debugShowCheckedModeBanner: false,
+        home: const MainPage(),
       ),
-      debugShowCheckedModeBanner: false,
-      home: const MainPage(),
     );
   }
 }
