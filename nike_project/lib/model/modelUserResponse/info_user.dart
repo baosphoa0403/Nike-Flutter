@@ -2,25 +2,25 @@ import 'dart:convert';
 
 import 'package:nike_project/model/modelUserResponse/info.dart';
 
-class InfoUser {
-  final String statusCode;
+class UserInfor {
+  final int statusCode;
   final Info info;
   final String accessToken;
   final String message;
-  InfoUser(
+  UserInfor(
     this.statusCode,
     this.info,
     this.accessToken,
     this.message,
   );
 
-  InfoUser copyWith({
-    String? statusCode,
+  UserInfor copyWith({
+    int? statusCode,
     Info? info,
     String? accessToken,
     String? message,
   }) {
-    return InfoUser(
+    return UserInfor(
       statusCode ?? this.statusCode,
       info ?? this.info,
       accessToken ?? this.accessToken,
@@ -32,30 +32,30 @@ class InfoUser {
     return {
       'statusCode': statusCode,
       'info': info.toMap(),
-      'accessToken': accessToken,
+      'access_token': accessToken,
       'message': message,
     };
   }
 
-  factory InfoUser.fromMap(Map<String, dynamic> map) {
-    return InfoUser(
+  factory UserInfor.fromMap(Map<String, dynamic> map) {
+    return UserInfor(
       map['statusCode'],
       Info.fromMap(map['info']),
-      map['accessToken'],
+      map['access_token'],
       map['message'],
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory InfoUser.fromJson(String source) =>
-      InfoUser.fromMap(json.decode(source));
+  factory UserInfor.fromJson(String source) =>
+      UserInfor.fromMap(json.decode(source));
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is InfoUser &&
+    return other is UserInfor &&
         other.statusCode == statusCode &&
         other.info == info &&
         other.accessToken == accessToken &&
@@ -72,6 +72,6 @@ class InfoUser {
 
   @override
   String toString() {
-    return 'InfoUser(statusCode: $statusCode, info: $info, accessToken: $accessToken, message: $message)';
+    return 'UserInfor(statusCode: $statusCode, info: $info, access_token: $accessToken, message: $message)';
   }
 }

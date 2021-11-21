@@ -29,6 +29,8 @@ TextField buildTextFieldPassword(
     obscureText: validationProvider.isPasswordVisible,
     textInputAction: TextInputAction.done,
     controller: validationProvider.passwordController,
-    onEditingComplete: validationProvider.changeForcusPassword,
+    onEditingComplete: () {
+      validationProvider.changeForcusPassword(context);
+    },
   );
 }
