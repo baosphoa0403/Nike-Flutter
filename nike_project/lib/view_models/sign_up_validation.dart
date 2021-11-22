@@ -1,10 +1,10 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:nike_project/common/alert/dialog_alert.dart';
 import 'package:nike_project/contants/contants.dart';
 import 'package:nike_project/model/modelUserRequestLogin/user_login_request.dart';
+import 'package:nike_project/page/Home_Page/home_page.dart';
 import 'package:nike_project/repositories/auth/auth_repository.implement.dart';
+import 'package:nike_project/toast/toast.dart';
 import 'package:nike_project/view_models/validation_item.dart';
 
 class SignUpValidationProvider with ChangeNotifier {
@@ -77,8 +77,8 @@ class SignUpValidationProvider with ChangeNotifier {
   void changePassword(String value) {
     if (validation && value.isEmpty) {
       _password = ValidationItem(null, "Password is Empty");
-    } else if (validation && value.length < 8) {
-      _password = ValidationItem(null, "Password must 8 character");
+    } else if (validation && value.length <= 2) {
+      _password = ValidationItem(null, "Password must 3 character");
     } else {
       _password = ValidationItem(value, null);
     }
@@ -94,13 +94,16 @@ class SignUpValidationProvider with ChangeNotifier {
   }
 
   void submitData(BuildContext context) {
+    validation = _email.value != null &&
+        _email.error == null &&
+        _password.value != null &&
+        _password.error == null;
     if (!validation) {
       validation = true;
       changeEmail(_email.value ?? "");
       changePassword(_password.value ?? "");
       notifyListeners();
     } else if (validation && isValid) {
-      print("FirstName: ${email.value}, LastName: ${password.value}");
       AuthRepositoryImplement()
           .postLogin(URL_API + "auth/login",
               UserLoginRequest(email: email.value!, password: password.value!))
@@ -108,8 +111,18 @@ class SignUpValidationProvider with ChangeNotifier {
         const storage = FlutterSecureStorage();
         await storage.write(key: "token", value: result.accessToken);
         await storage.write(key: "user", value: result.info.toJson());
-        showAlertDialog(context,
-            title: result.message, content: "", defaultActionText: "ok");
+        // showAlertDialog(context,
+        //     title: result.message, content: "", defaultActionText: "ok");
+        showToastSuccess(result.message);
+        // await Future.delayed(const Duration(milliseconds: 10));
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(
+              builder: (context) => const HomePage(),
+            ),
+            (route) => false);
+      }).onError((error, stackTrace) {
+        print("abc");
+        print(error);
       });
     }
     // UserInfor a =
