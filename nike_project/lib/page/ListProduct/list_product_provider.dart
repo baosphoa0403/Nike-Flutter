@@ -13,6 +13,7 @@ class ListProductProvider with ChangeNotifier {
 class ListCartProvider with ChangeNotifier {
   List<Cart> listCart = [];
   void addToCart(Product product) {
+    // tìm cái sản phẩm có trong cart ko
     final index =
         listCart.indexWhere((element) => element.product.id == product.id);
     if (index >= 0) {
@@ -36,7 +37,7 @@ class ListCartProvider with ChangeNotifier {
       listCart[index].quantity += 1;
     } else {
       //-
-      if (listCart[index].quantity >= 0) {
+      if (listCart[index].quantity > 1) {
         listCart[index].quantity -= 1;
       } else {
         listCart.remove(listCart[index]);
