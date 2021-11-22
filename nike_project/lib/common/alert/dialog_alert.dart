@@ -26,10 +26,13 @@ Future<dynamic> showAlertDialog(BuildContext context,
                 child: Text(cancelActionText)),
           TextButton(
               onPressed: () {
+                Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(
+                      builder: (context) => const HomePage(),
+                    ),
+                    (route) => false);
                 // Navigator.of(context).pop(true);
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return HomePage();
-                }));
+                // Navigator.of(context).pushReplacementNamed('/HomePage');
               },
               child: Text(defaultActionText))
         ],
