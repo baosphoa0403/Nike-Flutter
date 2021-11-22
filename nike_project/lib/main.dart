@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nike_project/page/Home_Page/home_page.dart';
 import 'package:nike_project/page/main_page.dart';
-import 'package:nike_project/view_models/sign_up_validation.dart';
+import 'package:nike_project/view_models/sign_in_validation.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -14,8 +14,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<SignUpValidationProvider>(
-      create: (context) => SignUpValidationProvider(),
+    return ChangeNotifierProvider<SignInValidationProvider>(
+      create: (context) => SignInValidationProvider(),
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(

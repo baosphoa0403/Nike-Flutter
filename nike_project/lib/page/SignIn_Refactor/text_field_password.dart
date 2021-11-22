@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:nike_project/contants/contants.dart';
-import 'package:nike_project/view_models/sign_up_validation.dart';
+import 'package:nike_project/view_models/sign_in_validation.dart';
 
 TextField buildTextFieldPassword(
-    SignUpValidationProvider validationProvider, BuildContext context) {
+    SignInValidationProvider validationProvider, BuildContext context) {
   return TextField(
     decoration: InputDecoration(
       prefixIcon: const Icon(Icons.password_outlined),

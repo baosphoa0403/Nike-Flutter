@@ -4,7 +4,7 @@ import 'package:nike_project/common/ScocialButton/social_button.dart';
 import 'package:nike_project/page/SignIn/button_back.dart';
 import 'package:nike_project/page/SignIn_Refactor/text_field_email.dart';
 import 'package:nike_project/page/SignIn_Refactor/text_field_password.dart';
-import 'package:nike_project/view_models/sign_up_validation.dart';
+import 'package:nike_project/view_models/sign_in_validation.dart';
 import 'package:provider/provider.dart';
 
 class SignUpFactory extends StatelessWidget {
@@ -54,7 +54,7 @@ class SignUpFactory extends StatelessWidget {
 }
 
 Column _buildForm(BuildContext context) {
-  final validationProvider = Provider.of<SignUpValidationProvider>(context);
+  final validationProvider = Provider.of<SignInValidationProvider>(context);
   return Column(
     children: [
       buildTextFieldEmail(validationProvider, context),
@@ -67,7 +67,7 @@ Column _buildForm(BuildContext context) {
 }
 
 ListView buildButtonLogin(BuildContext context) {
-  final validationProvider = Provider.of<SignUpValidationProvider>(context);
+  final validationProvider = Provider.of<SignInValidationProvider>(context);
   return ListView(
     scrollDirection: Axis.vertical,
     shrinkWrap: true,

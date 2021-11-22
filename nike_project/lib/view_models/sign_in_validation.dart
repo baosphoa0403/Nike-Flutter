@@ -7,7 +7,7 @@ import 'package:nike_project/repositories/auth/auth_repository.implement.dart';
 import 'package:nike_project/toast/toast.dart';
 import 'package:nike_project/view_models/validation_item.dart';
 
-class SignUpValidationProvider with ChangeNotifier {
+class SignInValidationProvider with ChangeNotifier {
   ValidationItem _email = ValidationItem(null, null);
   ValidationItem _password = ValidationItem(null, null);
 
