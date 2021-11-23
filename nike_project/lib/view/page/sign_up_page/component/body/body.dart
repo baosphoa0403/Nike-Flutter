@@ -1,81 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:nike_project/model/request/user_signup_request.dart';
 import 'package:nike_project/view/common/Button/elevated_button_custom.dart';
-import 'package:nike_project/view/common/Button/outlined_button_customer.dart';
 import 'package:nike_project/view/common/Input/input_text_custom.dart';
-import 'package:nike_project/view/common/common.dart';
 import 'package:nike_project/view/contants/contants.dart';
-import 'package:nike_project/viewmodel/signup_view_model.dart';
+import 'package:nike_project/viewmodel/provider/sign_up_provider.dart';
+import 'package:provider/provider.dart';
 
-class BodySignUp extends StatefulWidget with EmailAndPasswordValidator {
+class BodySignUp extends StatelessWidget {
   BodySignUp({Key? key}) : super(key: key);
 
   @override
-  _BodySignUpState createState() => _BodySignUpState();
-}
-
-class _BodySignUpState extends State<BodySignUp> {
-  //input
-  String username = "";
-  String email = "";
-  String password = "";
-  String name = "";
-  int yearOfBirth = 0;
-  String address = "";
-  //button
-  bool check = true;
-  bool _submited = false;
-  //notification
-  String msg="";
-
-  String? _validatorEmail(String? value) {
-    if (widget.emailValidator.isStringEmpty(value!)) {
-      return "Email is empty";
-    }
-    if (!widget.emailValidator.isEmailValid(value)) {
-      return "Email not format";
-    }
-    return null;
-  }
-
-  checkbox() {}
-
-  _submit() async {
-    setState(() {
-      _submited = true;
-    });
-    await Future.delayed(const Duration(seconds: 3));
-    SignUpViewModel().signUp(UserSignUpRequest(
-      username: this.username,
-      email: this.email,
-      password: this.password,
-      name: this.name,
-      yearOfBirth: this.yearOfBirth,
-      address: this.address,
-    ));
-
-    setState(() {
-      _submited = false;
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
+    SignUpProvider signUpProvider = Provider.of<SignUpProvider>(context);
     Size size = MediaQuery.of(context).size;
     return Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          _form(size),
+          _form(context,size, signUpProvider),
           SizedBox(height: size.height * 0.05),
-          _buildSignUp(size),
+          _buildSignUp(context,size, signUpProvider),
           SizedBox(height: size.height * 0.01),
         ],
       ),
     );
   }
 
-  Form _form(size) {
+  Form _form(BuildContext context,size,SignUpProvider signUpProvider) {
     return Form(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -90,8 +40,10 @@ class _BodySignUpState extends State<BodySignUp> {
             padding: 15,
             radius: 10,
             suffixIcon: Icon(Icons.people),
-            onChanged: (value) {},
-            validator: _validatorEmail,
+            onChanged: (value) {
+              signUpProvider.changeUserName(value);
+            },
+            validator: (value) {},
           ),
           SizedBox(
             height: size.height * 0.01,
@@ -107,9 +59,9 @@ class _BodySignUpState extends State<BodySignUp> {
             radius: 10,
             suffixIcon: Icon(Icons.remove_red_eye),
             onChanged: (value) {
-              setState(() {});
+              signUpProvider.changePassword(value);
             },
-            validator: _validatorEmail,
+            validator: (value) {},
           ),
           SizedBox(
             height: size.height * 0.01,
@@ -125,9 +77,9 @@ class _BodySignUpState extends State<BodySignUp> {
             radius: 10,
             suffixIcon: Icon(Icons.email_sharp),
             onChanged: (value) {
-              setState(() {});
+              signUpProvider.changeEmail(value);
             },
-            validator: _validatorEmail,
+            validator: (value) {},
           ),
           SizedBox(
             height: size.height * 0.01,
@@ -143,9 +95,9 @@ class _BodySignUpState extends State<BodySignUp> {
             radius: 10,
             suffixIcon: Icon(Icons.brush),
             onChanged: (value) {
-              setState(() {});
+              signUpProvider.changeName(value);
             },
-            validator: _validatorEmail,
+            validator: (value) {},
           ),
           SizedBox(
             height: size.height * 0.01,
@@ -161,9 +113,9 @@ class _BodySignUpState extends State<BodySignUp> {
             radius: 10,
             suffixIcon: Icon(Icons.calendar_today_sharp),
             onChanged: (value) {
-              setState(() {});
+              signUpProvider.changeYob(value);
             },
-            validator: _validatorEmail,
+            validator: (value) {},
           ),
           SizedBox(
             height: size.height * 0.01,
@@ -179,20 +131,24 @@ class _BodySignUpState extends State<BodySignUp> {
             radius: 10,
             suffixIcon: Icon(Icons.add_location_alt),
             onChanged: (value) {
-              setState(() {});
+              signUpProvider.changeAddress(value);
             },
-            validator: _validatorEmail,
+            validator: (value) {},
           ),
         ],
       ),
     );
   }
 
-  Column _buildSignUp(size) {
+  Column _buildSignUp(BuildContext context,size,SignUpProvider signUpProvider) {
     return Column(
       children: <Widget>[
         ElevatedButtonCustom(
-          onPressed: _submit,
+          onPressed: 
+          () {
+            signUpProvider.submitData();
+          }
+          ,
           color: kButtonColor,
           borderRadius: 10,
           height: size.height * 0.06,

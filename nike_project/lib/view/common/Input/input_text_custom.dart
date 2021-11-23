@@ -47,9 +47,9 @@ class InputTextCustom extends StatelessWidget {
             border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(radius),
                 borderSide: BorderSide.none),
-            suffixIcon: suffixIcon),            
-        onChanged: onChanged, 
-        validator: validator,         
+            suffixIcon: suffixIcon),
+        onChanged: onChanged,
+        validator: validator,
       ),
     );
   }
