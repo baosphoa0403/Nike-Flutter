@@ -8,7 +8,6 @@ class ElevatedButtonCustom extends StatelessWidget {
   final double borderRadius;
   final double height;
   final double width;
-
   const ElevatedButtonCustom(
       {Key? key,
       required this.child,
