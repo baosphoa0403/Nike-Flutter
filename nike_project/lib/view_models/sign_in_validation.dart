@@ -8,6 +8,7 @@ import 'package:nike_project/toast/toast.dart';
 import 'package:nike_project/view_models/validation_item.dart';
 
 class SignInValidationProvider with ChangeNotifier {
+  
   ValidationItem _email = ValidationItem(null, null);
   ValidationItem _password = ValidationItem(null, null);
 
@@ -25,6 +26,7 @@ class SignInValidationProvider with ChangeNotifier {
 
   final FocusNode _emailFocusNode = FocusNode();
   final FocusNode _passwordFocusNode = FocusNode();
+
   FocusNode get emailFocusNode => _emailFocusNode;
   FocusNode get passwordFocusNode => _passwordFocusNode;
 
