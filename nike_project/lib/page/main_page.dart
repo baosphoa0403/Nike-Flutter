@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nike_project/page/DemoListProduct/product_list.dart';
 import 'package:nike_project/page/SignIn/sign_in_page.dart';
 
 class MainPage extends StatelessWidget {
@@ -6,8 +7,12 @@ class MainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: SignInPage(),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Demo"),
+      ),
+      // body: SignInPage(),
+      body: ProductList(),
     );
   }
 }
