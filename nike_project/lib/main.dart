@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nike_project/page/Home_Page/home_page.dart';
+import 'package:nike_project/page/LandingPage/landing_page.dart';
 import 'package:nike_project/page/main_page.dart';
 import 'package:nike_project/view_models/sign_in_validation.dart';
 import 'package:provider/provider.dart';
@@ -22,10 +23,11 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         debugShowCheckedModeBanner: false,
-        initialRoute: "/Login",
+        initialRoute: "/HomePage",
         routes: {
+          "/": (context) => LandingPage(),
           "/Login": (context) => const MainPage(),
-          "/HomePage": (context) => const HomePage()
+          "/HomePage": (context) => const HomePage(),
         },
         // home: const MainPage(),
       ),
