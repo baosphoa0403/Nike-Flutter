@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nike_project/contants/contants.dart';
-import 'package:nike_project/view_models/sign_in_validation.dart';
+import 'package:nike_project/view_models/provider/sign_in_validation.dart';
 
 TextField buildTextFieldEmail(
     SignInValidationProvider validationProvider, BuildContext context) {

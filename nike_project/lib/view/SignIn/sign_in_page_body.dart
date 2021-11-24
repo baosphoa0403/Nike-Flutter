@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:nike_project/common/Button/elevated_button_custom.dart';
+import 'package:lottie/lottie.dart';
 import 'package:nike_project/common/ScocialButton/social_button.dart';
-import 'package:nike_project/page/SignIn/button_back.dart';
-import 'package:nike_project/page/SignIn_Refactor/text_field_email.dart';
-import 'package:nike_project/page/SignIn_Refactor/text_field_password.dart';
-import 'package:nike_project/view_models/sign_in_validation.dart';
+import 'package:nike_project/view/SignIn/text_field_email.dart';
+import 'package:nike_project/view/SignIn/text_field_password.dart';
+import 'package:nike_project/view/common/Button/button_back.dart';
+import 'package:nike_project/view/common/Button/elevated_button_custom.dart';
+import 'package:nike_project/view/page/sign_up_page/component/footer/footer.dart';
+import 'package:nike_project/view/page/sign_up_page/sign_up.dart';
+import 'package:nike_project/view_models/provider/sign_in_validation.dart';
 import 'package:provider/provider.dart';
 
-class SignUpFactory extends StatelessWidget {
-  const SignUpFactory({Key? key}) : super(key: key);
+class SignInBody extends StatelessWidget {
+  const SignInBody({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,11 +27,11 @@ class SignUpFactory extends StatelessWidget {
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
-          children: const <Widget>[
-            // Lottie.asset(
-            //   "assets/71361-sign-in.json",
-            //   width: MediaQuery.of(context).size.width * 0.5,
-            // ),
+          children: <Widget>[
+            Lottie.asset(
+              "assets/71361-sign-in.json",
+              width: MediaQuery.of(context).size.width * 0.5,
+            ),
             Text(
               "Sign In\nAccount",
               style: TextStyle(
@@ -40,11 +43,11 @@ class SignUpFactory extends StatelessWidget {
           ],
         ),
         const SizedBox(
-          height: 50,
+          height: 20,
         ),
         _buildForm(context),
         const SizedBox(
-          height: 50,
+          height: 20,
         ),
         buildButtonLogin(context)
         // isStretched ? buildButtonLogin() : buildSmallButton(isDone)
@@ -94,6 +97,14 @@ ListView buildButtonLogin(BuildContext context) {
         height: MediaQuery.of(context).size.height * 0.06,
         assertName: 'assets/google-48.png',
       ),
+      const SizedBox(
+        height: 20,
+      ),
+      FooterSignUp(
+        content: "Sign Up",
+        message: "Don't Have a Account",
+        widget: SignUpPage(),
+      )
     ],
   );
 }

@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:nike_project/page/Home_Page/home_page.dart';
-import 'package:nike_project/page/SignIn/sign_in_page.dart';
+import 'package:nike_project/view/Home_Page/home_page.dart';
+import 'package:nike_project/view/SignIn/sign_in_page.dart';
 
 class LandingPage extends StatelessWidget {
   LandingPage({Key? key}) : super(key: key);

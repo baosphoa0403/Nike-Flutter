@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:nike_project/page/Home_Page/home_page.dart';
-import 'package:nike_project/page/LandingPage/landing_page.dart';
-import 'package:nike_project/page/main_page.dart';
-import 'package:nike_project/view_models/sign_in_validation.dart';
+import 'package:nike_project/view/Home_Page/home_page.dart';
+import 'package:nike_project/view/SignIn/sign_in_page.dart';
+import 'package:nike_project/view/page/sign_up_page/sign_up.dart';
+import 'package:nike_project/view_models/provider/sign_up_provider.dart';
+import 'package:nike_project/view_models/provider/sign_in_validation.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -11,25 +12,30 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<SignInValidationProvider>(
-      create: (context) => SignInValidationProvider(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<SignUpProvider>(
+          create: (context) => SignUpProvider(),
+        ),
+        ChangeNotifierProvider<SignInValidationProvider>(
+          create: (context) => SignInValidationProvider(),
+        )
+      ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        debugShowCheckedModeBanner: false,
-        initialRoute: "/HomePage",
+        initialRoute: "/Login",
         routes: {
-          "/": (context) => LandingPage(),
-          "/Login": (context) => const MainPage(),
+          "/Login": (context) => const SignInPage(),
           "/HomePage": (context) => const HomePage(),
+          "/SignUp": (context) => SignUpPage()
         },
-        // home: const MainPage(),
+        // home: const MainPageSignIn(),
       ),
     );
   }

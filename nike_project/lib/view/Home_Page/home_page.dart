@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nike_project/contants/contants.dart';
-import 'package:nike_project/page/Home_Page/carousel.dart';
-import 'package:nike_project/page/Home_Page/intro.dart';
-import 'package:nike_project/page/Home_Page/product.dart';
+import 'package:nike_project/view/Home_Page/carousel.dart';
+import 'package:nike_project/view/Home_Page/intro.dart';
+import 'package:nike_project/view/Home_Page/product.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);

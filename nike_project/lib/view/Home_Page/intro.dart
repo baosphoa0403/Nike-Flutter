@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:nike_project/contants/contants.dart';
 
 class Intro extends StatelessWidget {
   const Intro({Key? key}) : super(key: key);

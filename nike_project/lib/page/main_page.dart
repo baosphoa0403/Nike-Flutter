@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:nike_project/page/SignIn/sign_in_page.dart';
+
+import 'package:nike_project/view/SignIn/sign_in_page.dart';
 
 class MainPage extends StatelessWidget {
   const MainPage({Key? key}) : super(key: key);
