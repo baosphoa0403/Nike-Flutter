@@ -9,7 +9,7 @@ import 'package:nike_project/view/common/toast/toast.dart';
 
 class SignUpImplRepository extends SignUpRepository {
   @override
-  Future<UserSignUpResponse?> postSignUp(
+  Future<UserSignUpResponse> postSignUp(
       String url, UserSignUpRequest req) async {
     UserSignUpResponse? responseResult;
     try {
@@ -21,6 +21,6 @@ class SignUpImplRepository extends SignUpRepository {
       print(e);
       showToastFail(e.response?.data["message"]);
     }
-    return responseResult;
+    return responseResult!;
   }
 }

@@ -209,6 +209,14 @@ class SignUpProvider with ChangeNotifier {
   }
 
   void submitData(BuildContext context) {
+    _submitValid = true;
+    changeUserName(_userName.value ?? "");
+    changePassword(_password.value ?? "");
+    changeEmail(_email.value ?? "");
+    changeName(_name.value ?? "");
+    changeYob(_yob.value ?? "");
+    changeAddress(_address.value ?? "");
+    notifyListeners();
     _submitValid = _userName.value != null &&
         _userName.error == null &&
         _password.value != null &&
@@ -221,16 +229,7 @@ class SignUpProvider with ChangeNotifier {
         _yob.error == null &&
         _address.value != null &&
         _address.error == null;
-    if (!_submitValid) {
-      _submitValid = true;
-      changeUserName(_userName.value ?? "");
-      changePassword(_password.value ?? "");
-      changeEmail(_email.value ?? "");
-      changeName(_name.value ?? "");
-      changeYob(_yob.value ?? "");
-      changeAddress(_address.value ?? "");
-      notifyListeners();
-    } else if (_submitValid && isValid) {
+    if (_submitValid && isValid) {
       SignUpImplRepository()
           .postSignUp(
               URL_SIGNUP,
@@ -243,7 +242,7 @@ class SignUpProvider with ChangeNotifier {
                   address: address.value!))
           .then((result) async {
         const storage = FlutterSecureStorage();
-        await storage.write(key: "user", value: result?.toJson());
+        await storage.write(key: "user", value: result.toJson());
         showToastSuccess("SignUp Success");
       }).onError((error, stackTrace) {
         print("Error Call API");
