@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:nike_project/contants/contants.dart';
 import 'package:nike_project/model/modelUserRequestLogin/user_login_request.dart';
-import 'package:nike_project/page/Home_Page/home_page.dart';
 import 'package:nike_project/repositories/auth/auth_repository.implement.dart';
 import 'package:nike_project/toast/toast.dart';
+import 'package:nike_project/view/Home_Page/home_page.dart';
 import 'package:nike_project/view_models/validation_item.dart';
 
 class SignInValidationProvider with ChangeNotifier {
-  
   ValidationItem _email = ValidationItem(null, null);
   ValidationItem _password = ValidationItem(null, null);
 

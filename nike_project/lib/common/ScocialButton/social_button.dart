@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nike_project/common/Button/elevated_button_custom.dart';
+import 'package:nike_project/view/common/Button/elevated_button_custom.dart';
 
 class SocialSignInButton extends ElevatedButtonCustom {
   SocialSignInButton(
