@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nike_project/view/main_page.dart';
-import 'package:nike_project/viewmodel/sign_up_provider.dart';
+import 'package:nike_project/viewmodel/provider/sign_up_provider.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -9,8 +9,6 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -25,7 +23,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: const MainPage(),
+        home: MainPage(),
       ),
     );
   }

@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:nike_project/model/request/user_signup_request.dart';
 import 'package:nike_project/view/common/Button/elevated_button_custom.dart';
-import 'package:nike_project/view/common/Button/outlined_button_customer.dart';
-import 'package:nike_project/view/common/Input/input_text_custom.dart';
-import 'package:nike_project/view/common/common.dart';
 import 'package:nike_project/view/contants/contants.dart';
-import 'package:nike_project/viewmodel/sign_up_provider.dart';
-import 'package:nike_project/viewmodel/signup_view_model.dart';
+import 'package:nike_project/viewmodel/provider/sign_up_provider.dart';
 import 'package:provider/provider.dart';
 
 class BodySignUp extends StatelessWidget {
@@ -29,139 +24,208 @@ class BodySignUp extends StatelessWidget {
     );
   }
 
-  Form _form(size, BuildContext context, SignUpProvider signUpProvider) {
-    return Form(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          TextField(
-            decoration: InputDecoration(
-              suffixIcon: const Icon(Icons.people),
-              labelText: "User name",
-              fillColor: Colors.lightBlue.shade50,
-              filled: true,
-              contentPadding: const EdgeInsets.all(20),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10.0),
-              ),
+  Column _form(size, BuildContext context, SignUpProvider signUpProvider) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        TextField(
+          decoration: InputDecoration(
+            prefixIcon: Icon(Icons.people),
+            suffixIcon: signUpProvider.textUserNameController.isNotEmpty
+                ? IconButton(
+                    onPressed: () => signUpProvider.clearUserNameController(),
+                    icon: Icon(Icons.close))
+                : null,
+            labelText: "User name",
+            fillColor: Colors.lightBlue.shade50,
+            filled: true,
+            contentPadding: EdgeInsets.all(20),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
             ),
-            onChanged: (String value) {
-              signUpProvider.changeUserName(value);
-            },
+            errorText: signUpProvider.username.error,
           ),
-          SizedBox(
-            height: size.height * 0.01,
-          ),
-          TextField(
+          autocorrect: false,
+          keyboardType: TextInputType.text,
+          onChanged: (String value) {
+            signUpProvider.changeUserName(value);
+          },
+          focusNode: signUpProvider.userNameFocusNode,
+          controller: signUpProvider.userNameController,
+          onEditingComplete: () {
+            signUpProvider.changeFocus(context, "username");
+          },
+        ),
+        SizedBox(
+          height: size.height * 0.01,
+        ),
+        TextField(
             decoration: InputDecoration(
-              suffixIcon: const Icon(Icons.remove_red_eye),
+              prefixIcon: Icon(Icons.password),
+              suffixIcon: signUpProvider.textPasswordController.isNotEmpty
+                  ? IconButton(
+                      onPressed: () => {signUpProvider.changePasswordVisible()},
+                      icon: signUpProvider.isPasswordVisible
+                          ? Icon(Icons.visibility)
+                          : Icon(Icons.visibility_off))
+                  : null,
               labelText: "Password",
               fillColor: Colors.lightBlue.shade50,
               filled: true,
-              contentPadding: const EdgeInsets.all(20),
+              contentPadding: EdgeInsets.all(20),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10.0),
               ),
+              errorText: signUpProvider.password.error,
             ),
+            obscureText: signUpProvider.isPasswordVisible,
+            keyboardType: TextInputType.text,
             onChanged: (String value) {
               signUpProvider.changePassword(value);
             },
-          ),
-          SizedBox(
-            height: size.height * 0.01,
-          ),
-          TextField(
-            decoration: InputDecoration(
-              suffixIcon: const Icon(Icons.email_sharp),
-              labelText: "Email",
-              fillColor: Colors.lightBlue.shade50,
-              filled: true,
-              contentPadding: const EdgeInsets.all(20),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10.0),
-              ),
+            focusNode: signUpProvider.passwordFocusNode,
+            controller: signUpProvider.passwordController,
+            onEditingComplete: () {
+              signUpProvider.changeFocus(context, "password");
+            }),
+        SizedBox(
+          height: size.height * 0.01,
+        ),
+        TextField(
+          decoration: InputDecoration(
+            prefixIcon: Icon(Icons.email_sharp),
+            suffixIcon: signUpProvider.textEmailController.isNotEmpty
+                ? IconButton(
+                    onPressed: () => signUpProvider.clearEmailController(),
+                    icon: Icon(Icons.close))
+                : null,
+            labelText: "Email",
+            fillColor: Colors.lightBlue.shade50,
+            filled: true,
+            contentPadding: EdgeInsets.all(20),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
             ),
-            onChanged: (String value) {
-              signUpProvider.changeEmail(value);
-            },
+            errorText: signUpProvider.email.error,
           ),
-          SizedBox(
-            height: size.height * 0.01,
-          ),
-          TextField(
-            decoration: InputDecoration(
-              suffixIcon: const Icon(Icons.brush),
+          keyboardType: TextInputType.emailAddress,
+          onChanged: (String value) {
+            signUpProvider.changeEmail(value);
+          },
+          focusNode: signUpProvider.emailFocusNode,
+          controller: signUpProvider.emailController,
+          onEditingComplete: () {
+            signUpProvider.changeFocus(context, "email");
+          },
+        ),
+        SizedBox(
+          height: size.height * 0.01,
+        ),
+        TextField(
+          decoration: InputDecoration(
+              prefixIcon: Icon(Icons.brush),
+              suffixIcon: signUpProvider.textNameController.isNotEmpty
+                  ? IconButton(
+                      onPressed: () => signUpProvider.clearNameController(),
+                      icon: Icon(Icons.close))
+                  : null,
               labelText: "Name",
               fillColor: Colors.lightBlue.shade50,
               filled: true,
-              contentPadding: const EdgeInsets.all(20),
+              contentPadding: EdgeInsets.all(20),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10.0),
               ),
-            ),
-            onChanged: (String value) {
-              signUpProvider.changeName(value);
-            },
-          ),
-          SizedBox(
-            height: size.height * 0.01,
-          ),
-          TextField(
+              errorText: signUpProvider.name.error),
+          keyboardType: TextInputType.text,
+          onChanged: (String value) {
+            signUpProvider.changeName(value);
+          },
+          focusNode: signUpProvider.nameFocusNode,
+          controller: signUpProvider.nameController,
+          onEditingComplete: () {
+            signUpProvider.changeFocus(context, "name");
+          },
+        ),
+        SizedBox(
+          height: size.height * 0.01,
+        ),
+        TextField(
             decoration: InputDecoration(
-              suffixIcon: const Icon(Icons.calendar_today_sharp),
+              prefixIcon: Icon(Icons.calendar_today_sharp),
+              suffixIcon: signUpProvider.textYobController.isNotEmpty
+                  ? IconButton(
+                      onPressed: () => signUpProvider.clearYobController(),
+                      icon: Icon(Icons.close))
+                  : null,
               labelText: "Year Of Birth",
               fillColor: Colors.lightBlue.shade50,
               filled: true,
-              contentPadding: const EdgeInsets.all(20),
+              contentPadding: EdgeInsets.all(20),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10.0),
               ),
+              errorText: signUpProvider.yob.error,
             ),
+            keyboardType: TextInputType.number,
             onChanged: (String value) {
               signUpProvider.changeYob(value);
             },
-          ),
-          SizedBox(
-            height: size.height * 0.01,
-          ),
-          TextField(
-            decoration: InputDecoration(
-              suffixIcon: const Icon(Icons.add_location_alt_sharp),
-              labelText: "Address",
-              fillColor: Colors.lightBlue.shade50,
-              filled: true,
-              contentPadding: const EdgeInsets.all(20),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10.0),
-              ),
+            focusNode: signUpProvider.yobFocusNode,
+            controller: signUpProvider.yobController,
+            onEditingComplete: () {
+              signUpProvider.changeFocus(context, "yob");
+            }),
+        SizedBox(
+          height: size.height * 0.01,
+        ),
+        TextField(
+          decoration: InputDecoration(
+            prefixIcon: Icon(Icons.add_location_alt_sharp),
+            suffixIcon: signUpProvider.textAddressController.isNotEmpty
+                ? IconButton(
+                    onPressed: () => signUpProvider.clearAddressController(),
+                    icon: Icon(Icons.close))
+                : null,
+            labelText: "Address",
+            fillColor: Colors.lightBlue.shade50,
+            filled: true,
+            contentPadding: EdgeInsets.all(20),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
             ),
-            onChanged: (String value) {
-              signUpProvider.changeAddress(value);
-            },
+            errorText: signUpProvider.address.error,
           ),
-        ],
-      ),
+          keyboardType: TextInputType.streetAddress,
+          onChanged: (String value) {
+            signUpProvider.changeAddress(value);
+          },
+          focusNode: signUpProvider.addressFocusNode,
+          controller: signUpProvider.addressController,
+          onEditingComplete: () {
+            signUpProvider.changeFocus(context, "address");
+          },
+        ),
+      ],
     );
   }
 
-  Column _buildSignUp(
+  Container _buildSignUp(
       size, BuildContext context, SignUpProvider signUpProvider) {
-    return Column(
-      children: <Widget>[
-        ElevatedButtonCustom(
-          onPressed: () {
-            signUpProvider.submitData();
-          },
-          color: kButtonColor,
-          borderRadius: 10,
-          height: size.height * 0.06,
-          width: size.width,
-          child: Text(
-            'Create Account',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-          ),
+    return Container(
+      child: ElevatedButtonCustom(
+        onPressed: () {
+          signUpProvider.submitData(context);
+        },
+        color: kButtonColor,
+        borderRadius: 10,
+        height: size.height * 0.06,
+        width: size.width,
+        child: Text(
+          'Create Account',
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
         ),
-      ],
+      ),
     );
   }
 }

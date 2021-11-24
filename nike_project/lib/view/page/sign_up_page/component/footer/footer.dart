@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nike_project/view/page/sign_up_page/sign_up.dart';
+import 'package:nike_project/view/page/welcome.dart';
 
 class FooterSignUp extends StatelessWidget {
   const FooterSignUp({
@@ -24,11 +25,11 @@ class FooterSignUp extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                     fontStyle: FontStyle.italic),
               ),
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return SignUpPage();
-                }));
-              },
+              // onTap: () {
+              //   Navigator.push(context, MaterialPageRoute(builder: (context) {
+              //     return WelcomePage();
+              //   }));              
+              //},
             )
           ])
         ],
