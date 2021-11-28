@@ -3,7 +3,7 @@ import 'package:nike_project/model/entity/product_item/product_item.dart';
 import 'package:nike_project/repositories/product_item/product_item.impl.dart';
 import 'package:nike_project/view/Home_Page/carousel.dart';
 import 'package:nike_project/view/Home_Page/intro.dart';
-import 'package:nike_project/view/Home_Page/product.dart';
+import 'package:nike_project/view/Home_Page/list_product.dart';
 
 class ListProductPage extends StatefulWidget {
   @override
