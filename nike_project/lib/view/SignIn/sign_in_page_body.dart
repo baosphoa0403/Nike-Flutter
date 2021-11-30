@@ -43,11 +43,11 @@ class SignInBody extends StatelessWidget {
           ],
         ),
         const SizedBox(
-          height: 50,
+          height: 20,
         ),
         _buildForm(context),
         const SizedBox(
-          height: 50,
+          height: 20,
         ),
         buildButtonLogin(context)
         // isStretched ? buildButtonLogin() : buildSmallButton(isDone)

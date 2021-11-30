@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
+import 'package:nike_project/model/entity/details_product/details_product.dart';
+import 'package:nike_project/view_models/provider/detail_product_provider.dart';
 
 class DetailPage extends StatelessWidget {
   const DetailPage({Key? key}) : super(key: key);
@@ -242,7 +243,9 @@ class DetailPage extends StatelessWidget {
                       MaterialStateProperty.all<Color>(Colors.blue),
                 ),
                 child: const Text('ADD TO CART'),
-                onPressed: () {}),
+                onPressed: () {
+                  DetailProductProvider().viewDetail();
+                }),
           ),
         ],
       ),
