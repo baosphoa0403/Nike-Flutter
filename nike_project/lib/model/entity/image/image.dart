@@ -1,5 +1,5 @@
-class Image {
-  Image({
+class ImageProduct {
+  ImageProduct({
     required this.id,
     required this.urlImage,
     required this.idShoesDetail,
@@ -9,7 +9,7 @@ class Image {
   String urlImage;
   String idShoesDetail;
 
-  factory Image.fromJson(Map<String, dynamic> json) => Image(
+  factory ImageProduct.fromJson(Map<String, dynamic> json) => ImageProduct(
         id: json["_id"],
         urlImage: json["urlImage"],
         idShoesDetail: json["idShoesDetail"],

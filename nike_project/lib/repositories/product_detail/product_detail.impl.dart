@@ -14,12 +14,12 @@ class ProductDetailImpl extends ProductDetailRepository {
       Response res = await Dio().get(
           "http://management-shoes.herokuapp.com/product/$id/productDetail");
       List<dynamic> data = jsonDecode(jsonEncode(res.data));
-      //print(jsonDecode("[" + res.data + "]"));
       result = data
           .map(
             (dynamic item) => ProductDetailResponse.fromJson(item),
           )
           .toList();
+      print(result);
     } on DioError catch (e) {
       print("baonguuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu");
       print(e);

@@ -1,9 +1,18 @@
+import 'dart:convert';
+
 import 'package:nike_project/model/entity/color_product/color.dart';
 import 'package:nike_project/model/entity/gender/gender.dart';
 import 'package:nike_project/model/entity/image/image.dart';
 import 'package:nike_project/model/entity/product/product.dart';
 import 'package:nike_project/model/entity/quantity/quantity.dart';
 import 'package:nike_project/model/entity/status/status_detail.dart';
+
+List<ProductDetailResponse> ProductDetailResponseFromJson(String str) =>
+    List<ProductDetailResponse>.from(
+        json.decode(str).map((x) => ProductDetailResponse.fromJson(x)));
+
+String ProductDetailResponseToJson(List<ProductDetailResponse> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class ProductDetailResponse {
   ProductDetailResponse({
@@ -14,14 +23,15 @@ class ProductDetailResponse {
 
   Info info;
   List<Quantity> quantities;
-  List<Image> images;
+  List<ImageProduct> images;
 
   factory ProductDetailResponse.fromJson(Map<String, dynamic> json) =>
       ProductDetailResponse(
         info: Info.fromJson(json["info"]),
         quantities: List<Quantity>.from(
             json["quantities"].map((x) => Quantity.fromJson(x))),
-        images: List<Image>.from(json["images"].map((x) => Image.fromJson(x))),
+        images: List<ImageProduct>.from(
+            json["images"].map((x) => ImageProduct.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {

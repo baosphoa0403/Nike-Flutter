@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        initialRoute: "/DetailPage",
+        initialRoute: "/HomePage",
         routes: {
           "/Login": (context) => const SignInPage(),
           "/HomePage": (context) => const HomePage(),

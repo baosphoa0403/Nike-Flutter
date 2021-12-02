@@ -1,10 +1,15 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:nike_project/model/entity/details_product/details_product.dart';
+import 'package:nike_project/model/entity/image/image.dart';
+import 'package:nike_project/model/entity/quantity/quantity.dart';
+import 'package:nike_project/model/modelUserResponse/info.dart' as prefix;
+import 'package:nike_project/model/response/product_detail_response.dart';
 import 'package:nike_project/view_models/provider/detail_product_provider.dart';
 
 class DetailPage extends StatelessWidget {
-  const DetailPage({Key? key}) : super(key: key);
+  final Future<List<ProductDetailResponse>>? product;
+  DetailPage({Key? key, this.product}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,47 +34,45 @@ class DetailPage extends StatelessWidget {
             ),
           ),
         ),
-        body: _buildProductDetailsPage(context)
-        // bottomNavigationBar: _buildBottomNavigationBar(context),
-        );
+        body: _buildProductDetailsPage(context));
   }
 
   _buildProductDetailsPage(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
-    return ListView(
-      children: <Widget>[
-        Container(
-          padding: const EdgeInsets.all(4.0),
-          child: Card(
-            elevation: 4.0,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                // _buildProductImagesWidgets(),
-                _showImage(screenSize),
-                const SizedBox(height: 12.0),
-
-                _buildProductTitleWidget(),
-                const SizedBox(height: 12.0),
-                _buildPriceWidgets(),
-                const SizedBox(height: 12.0),
-                _buildSizeChartWidgets(),
-                const SizedBox(height: 12.0),
-                _buildStyleNoteHeader(),
-                const SizedBox(height: 4.0),
-                _buildStyleNoteData(),
-                const SizedBox(height: 20.0),
-                _buildMoreInfoHeader(),
-                const SizedBox(height: 4.0),
-                _buildMoreInfoData(),
-                const SizedBox(height: 24.0),
-                _buildBottomNavigationBar(context),
-              ],
-            ),
-          ),
-        ),
-      ],
-    );
+    return FutureBuilder<List<ProductDetailResponse>>(
+        future: product,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return ListView.builder(
+                itemCount: snapshot.data?.length,
+                itemBuilder: (context, index) {
+                  return Container(
+                    padding: EdgeInsets.all(4.0),
+                    child: Card(
+                      elevation: 4.0,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          _showImage(screenSize, snapshot.data![index].images),
+                          SizedBox(height: 12.0),
+                          _buildProductTitleWidget(
+                              snapshot.data![index].info.product.name),
+                          SizedBox(height: 12.0),
+                          _InfoProduct(snapshot.data![index].info),
+                          _SizeProcut(
+                              screenSize, snapshot.data![index].quantities),
+                          SizedBox(height: 12.0),
+                          _buildBottomNavigationBar(context),
+                        ],
+                      ),
+                    ),
+                  );
+                });
+          } else if (snapshot.hasError) {
+            return Text('${snapshot.error}');
+          }
+          return const CircularProgressIndicator();
+        });
   }
 
   _buildProductImagesWidgets() {
@@ -85,146 +88,79 @@ class DetailPage extends StatelessWidget {
     ));
   }
 
-  _showImage(Size screenSize) {
-    return Image.asset(
-      "assets/photo/adidas-alphabounce-beyond-release-details-3.jpg",
-      width: screenSize.width,
+  _showImage(Size screenSize, List<ImageProduct> listImage) {
+    return CarouselSlider(
+      options: CarouselOptions(
+        height: screenSize.width * 0.5,
+        enlargeCenterPage: true,
+        autoPlay: true,
+        aspectRatio: 16 / 9,
+        autoPlayCurve: Curves.fastOutSlowIn,
+        enableInfiniteScroll: true,
+        autoPlayAnimationDuration: Duration(milliseconds: 800),
+        viewportFraction: 0.8,
+      ),
+      items: listImage.map((i) {
+        return Builder(
+          builder: (BuildContext context) {
+            return Container(
+                margin: EdgeInsets.only(
+                  top: 10.0,
+                ),
+                height: screenSize.width * 0.6,
+                width: screenSize.width,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15.0),
+                  image: DecorationImage(
+                    //fit: BoxFit.cover,
+                    image: NetworkImage(
+                      i.urlImage,
+                    ),
+                  ),
+                ));
+          },
+        );
+      }).toList(),
     );
   }
 
-  _buildProductTitleWidget() {
-    return const Padding(
+  _buildProductTitleWidget(String name) {
+    return Padding(
       padding: EdgeInsets.symmetric(horizontal: 12.0),
       child: Center(
         child: Text(
-          //name,
-          "Adidas Alphabounce",
+          name,
           style: TextStyle(fontSize: 16.0, color: Colors.black),
         ),
       ),
     );
   }
 
-  _buildPriceWidgets() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        mainAxisSize: MainAxisSize.max,
-        children: <Widget>[
-          const Text(
-            "\$${100}",
-            style: TextStyle(fontSize: 16.0, color: Colors.black),
-          ),
-          const SizedBox(
-            width: 8.0,
-          ),
-          const Text(
-            "\$${10}",
-            style: TextStyle(
-              fontSize: 12.0,
-              color: Colors.grey,
-              decoration: TextDecoration.lineThrough,
-            ),
-          ),
-          const SizedBox(
-            width: 8.0,
-          ),
-          Text(
-            "${10}% Off",
-            style: TextStyle(
-              fontSize: 12.0,
-              color: Colors.blue[700],
-            ),
-          ),
-        ],
-      ),
+  _InfoProduct(Info info) {
+    return Column(
+      children: [
+        Text('${info.status.nameStatus}'),
+        Text('${info.color.nameColor}'),
+        Text('${info.gender.nameGender}')
+      ],
     );
   }
 
-  _buildSizeChartWidgets() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12.0),
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              Icon(
-                Icons.straighten,
-                color: Colors.grey[600],
-              ),
-              const SizedBox(
-                width: 12.0,
-              ),
-              Text(
-                "Size",
-                style: TextStyle(
-                  color: Colors.grey[600],
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  _buildStyleNoteHeader() {
-    return Padding(
-      padding: const EdgeInsets.only(
-        left: 12.0,
-      ),
-      child: Text(
-        "DECRIPTION",
-        style: TextStyle(
-          color: Colors.grey[800],
-        ),
-      ),
-    );
-  }
-
-  _buildStyleNoteData() {
-    return Padding(
-      padding: const EdgeInsets.only(
-        left: 12.0,
-      ),
-      child: Text(
-        "The adidas Alphabounce is a new low-cut running shoe from adidas. It features a mix of full-length mesh, ribbed patterns, and Bounce foam cushioning. The shoe debuted on June 15th, 2016 for an MSRP of 100. Additional colorways released at select retailers on June 20th, 2016. Read the articles below for further release details and price information. ",
-        style: TextStyle(
-          color: Colors.grey[600],
-        ),
-      ),
-    );
-  }
-
-  _buildMoreInfoHeader() {
-    return Padding(
-      padding: const EdgeInsets.only(
-        left: 12.0,
-      ),
-      child: Text(
-        "MORE INFO",
-        style: TextStyle(
-          color: Colors.grey[800],
-        ),
-      ),
-    );
-  }
-
-  _buildMoreInfoData() {
-    return Padding(
-      padding: const EdgeInsets.only(
-        left: 12.0,
-      ),
-      child: Text(
-        "Product Code: ${100}\nTax info: Applicable GST will be charged at the time of chekout",
-        style: TextStyle(
-          color: Colors.grey[600],
-        ),
-      ),
-    );
+  _SizeProcut(Size screenSize, List<Quantity> listQuantity) {
+    return Column(children: [
+      Row(
+          children: listQuantity.map((item) {
+        return Expanded(flex: 1, child: Text('quantity: ${item.quantity}'));
+      }).toList()),
+      Row(
+          children: listQuantity.map((item) {
+        return Expanded(flex: 1, child: Text('size: ${item.size.nameSize}\$'));
+      }).toList()),
+      Row(
+          children: listQuantity.map((item) {
+        return Expanded(flex: 1, child: Text('price: ${item.price}\$'));
+      }).toList())
+    ]);
   }
 
   _buildBottomNavigationBar(BuildContext context) {
@@ -243,9 +179,7 @@ class DetailPage extends StatelessWidget {
                       MaterialStateProperty.all<Color>(Colors.blue),
                 ),
                 child: const Text('ADD TO CART'),
-                onPressed: () {
-                  DetailProductProvider().viewDetail();
-                }),
+                onPressed: () {}),
           ),
         ],
       ),

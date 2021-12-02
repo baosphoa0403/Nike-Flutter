@@ -11,13 +11,14 @@ class DetailProduct {
 
   InfoProduct info;
   List<Quantity> quantities;
-  List<Image> images;
+  List<ImageProduct> images;
 
   factory DetailProduct.fromJson(Map<String, dynamic> json) => DetailProduct(
         info: InfoProduct.fromJson(json["info"]),
         quantities: List<Quantity>.from(
             json["quantities"].map((x) => Quantity.fromJson(x))),
-        images: List<Image>.from(json["images"].map((x) => Image.fromJson(x))),
+        images: List<ImageProduct>.from(
+            json["images"].map((x) => ImageProduct.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {

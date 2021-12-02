@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:nike_project/model/entity/product_item/product_item.dart';
+import 'package:nike_project/model/modelUserResponse/info.dart';
+import 'package:nike_project/model/response/product_detail_response.dart';
+import 'package:nike_project/repositories/product_detail/product_detail.impl.dart';
 import 'package:nike_project/view/Detail_Page/detail_page.dart';
 
 class ProductItemComponent extends StatefulWidget {
@@ -168,11 +172,16 @@ class _ProductItemComponentState extends State<ProductItemComponent>
                                   borderRadius: BorderRadius.circular(12.0),
                                 ),
                                 child: InkWell(
-                                  onTap: () {
+                                  onTap: () async {
+                                    Future<List<ProductDetailResponse>> list =
+                                        ProductDetailImpl().getProduct(
+                                            widget.productItem.product.id);
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => DetailPage()),
+                                          builder: (context) => DetailPage(
+                                                product: list,
+                                              )),
                                     );
                                   },
                                   child: Center(
